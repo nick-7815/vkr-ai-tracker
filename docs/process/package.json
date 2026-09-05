@@ -1,0 +1,13 @@
+{
+  "name": "vkr-process-docs",
+  "private": true,
+  "description": "Модели процесса ВКР в BPMN 2.0 и их проверка",
+  "scripts": {
+    "build": "node as-is.js && node to-be.js",
+    "check": "node validate.js vkr-process-as-is.bpmn && node validate.js vkr-process-to-be.bpmn && bpmnlint vkr-process-as-is.bpmn && bpmnlint vkr-process-to-be.bpmn"
+  },
+  "devDependencies": {
+    "bpmn-moddle": "^9.0.1",
+    "bpmnlint": "^11.6.0"
+  }
+}
