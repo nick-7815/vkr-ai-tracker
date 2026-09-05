@@ -1,0 +1,34 @@
+name: Сборка ПЗ
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Times New Roman распространять нельзя, поэтому в CI используется
+      # метрически совместимый Liberation Serif — вёрстка не разъезжается
+      - name: Установить шрифты
+        run: sudo apt-get update && sudo apt-get install -y fonts-liberation
+
+      - uses: typst-community/setup-typst@v4
+        with:
+          typst-version: '0.14.2'
+
+      - name: Собрать пояснительную записку
+        run: typst compile thesis.typ thesis.pdf
+
+      - name: Собрать витрину оформления
+        run: typst compile examples/showcase.typ showcase.pdf --root .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Пояснительная записка
+          path: |
+            thesis.pdf
+            showcase.pdf

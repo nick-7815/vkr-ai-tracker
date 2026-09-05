@@ -1,0 +1,13 @@
+# Собранные PDF
+*.pdf
+!other/title-and-task.pdf
+
+# Шрифты не коммитим: Times New Roman распространять нельзя.
+# Положите .ttf сюда локально — папка подхватывается через --font-path fonts
+fonts/
+
+# Служебное
+.DS_Store
+Thumbs.db
+*~
+*.swp
