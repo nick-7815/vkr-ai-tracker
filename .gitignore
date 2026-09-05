@@ -11,3 +11,6 @@ fonts/
 Thumbs.db
 *~
 *.swp
+
+# Зависимости проверок BPMN-моделей
+docs/process/node_modules/

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><title>Процесс ВКР — просмотр моделей</title>
+<link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/diagram-js.css">
+<link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/bpmn-js.css">
+<link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/bpmn-font/css/bpmn.css">
+<style>html,body{margin:0;height:100%;font:14px system-ui}#c{height:calc(100vh - 44px);background:#fff}
+.bar{height:44px;display:flex;gap:8px;align-items:center;padding:0 12px;border-bottom:1px solid #ddd}
+button{font:inherit;padding:5px 10px;cursor:pointer}</style></head>
+<body>
+<div class="bar">
+  <button data-src="vkr-process-as-is.bpmn">Как есть</button>
+  <button data-src="vkr-process-to-be.bpmn">Как надо</button>
+  <span id="status"></span>
+</div>
+<div id="c"></div>
+<script src="https://unpkg.com/bpmn-js@17.11.1/dist/bpmn-navigated-viewer.development.js"></script>
+<script>
+const viewer = new BpmnJS({container:'#c'});
+async function load(src){
+  const xml = await (await fetch(src)).text();
+  await viewer.importXML(xml);
+  const c = viewer.get('canvas'); c.resized(); c.zoom('fit-viewport','auto');
+  document.getElementById('status').textContent = src;
+}
+document.querySelector('.bar').addEventListener('click', e => { if(e.target.dataset.src) load(e.target.dataset.src); });
+load('vkr-process-as-is.bpmn');
+</script>
+</body></html>
